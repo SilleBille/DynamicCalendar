@@ -18,15 +18,26 @@ package com.kd.dynamic.calendar.generator;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ImageGenerator {
 
     private Context mContext;
-    private float mSize;
-    private Color mColor;
+    private float mMonthSize = 9f;
+    private float mDateSize = 32f;
+    private int mColor = Color.WHITE;
     private Typeface mTypeFace;
+
+    private String mDate;
+    private String mMonth;
+
+    private Bitmap mSource;
+    private Bitmap mDestination;
 
     /**
      * Get the context of the activity
@@ -38,12 +49,21 @@ public class ImageGenerator {
     }
 
     /**
-     * Set the size of the font to be generated.
+     * Set the size of the month font to be generated.
      *
-     * @param size The size of the font
+     * @param monthSize The size of the date font
      */
-    public void setFontSize(float size) {
-        mSize = size;
+    public void setMonthSize(float monthSize) {
+        mMonthSize = monthSize;
+    }
+
+    /**
+     * Set the size of the date font to be generated.
+     *
+     * @param dateSize The size of the date font
+     */
+    public void setDateSize(float dateSize) {
+        mDateSize = dateSize;
     }
 
     /**
@@ -51,21 +71,33 @@ public class ImageGenerator {
      *
      * @param color The color of the font
      */
-    public void setColor(Color color) {
+    public void setColor(int color) {
         mColor = color;
     }
 
     /**
      * Apply the specified TypeFace to the font
-     * @param typeFace
+     *
+     * @param typeFace Typeface of the font to be generated
      */
     public void setTypeFace(Typeface typeFace) {
         mTypeFace = typeFace;
     }
 
 
+    public Bitmap generateDateImage(Date dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        mDate = dateFormat.format(dateString);
+        mMonth = monthFormat.format(dateString);
+
+        System.out.print(mDate + ":" + mMonth);
+        return null;
+
+    }
+
    /* public Bitmap generateImage(Context context, String month, String date) {
-        Bitmap src = BitmapFactory.decodeResource(context.getResources(), R.drawable.calendar_empty); // the original file yourimage.jpg i added in resources
+       Bitmap src = BitmapFactory.decodeResource(context.getResources(), R.drawable.calendar_empty); // the original file yourimage.jpg i added in resources
         Bitmap dest = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
 
 

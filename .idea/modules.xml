@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DynamicCalendar.iml" filepath="$PROJECT_DIR$/DynamicCalendar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/dynamiccalendaricongenerator.iml" filepath="$PROJECT_DIR$/library/dynamiccalendaricongenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
     </modules>
   </component>
