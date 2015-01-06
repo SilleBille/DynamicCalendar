@@ -21,9 +21,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 public class ImageGenerator {
 
@@ -85,13 +86,18 @@ public class ImageGenerator {
     }
 
 
-    public Bitmap generateDateImage(Date dateString) {
+    public Bitmap generateDateImage(Calendar dateString, int backgroundImage) {
+
+        // Get the individual date and month from the date object
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
         SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
-        mDate = dateFormat.format(dateString);
-        mMonth = monthFormat.format(dateString);
+        mDate = dateFormat.format(dateString.getTime());
+        mMonth = monthFormat.format(dateString.getTime());
 
-        System.out.print(mDate + ":" + mMonth);
+        // Print the separated date and month
+        Log.d("Date here: ", mDate + ":" + mMonth);
+
+
         return null;
 
     }

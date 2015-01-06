@@ -16,25 +16,54 @@
 
 package com.kd.dynamic.calendar;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.kd.dynamic.calendar.generator.ImageGenerator;
 
-import java.util.Date;
+import java.util.Calendar;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    ImageGenerator imageGenerator;
+    ImageGenerator mImageGenerator;
+    EditText mDateEditText;
+    Calendar mCurrentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mImageGenerator = new ImageGenerator(this);
+        mDateEditText = (EditText) findViewById(R.id.txtDateEntered);
 
-        imageGenerator = new ImageGenerator(this);
-        imageGenerator.generateDateImage(new Date());
+        // Pop up Date picker on pressing the editText
+        mDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCurrentDate = Calendar.getInstance();
+                int mYear = mCurrentDate.get(Calendar.YEAR);
+                int mMonth = mCurrentDate.get(Calendar.MONTH);
+                int mDay = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog mDatePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
+                        // Update the editText to display the selected date
+                        mDateEditText.setText(selectedDay + "-" + (selectedMonth + 1) + "-" + selectedYear);
+
+                        // Set the mCurrentDate to the selected date-month-year
+                        mCurrentDate.set(selectedYear, selectedMonth, selectedDay);
+                        mImageGenerator.generateDateImage(mCurrentDate);
+                    }
+                }, mYear, mMonth, mDay);
+                mDatePicker.show();
+            }
+        });
+
     }
 
 
