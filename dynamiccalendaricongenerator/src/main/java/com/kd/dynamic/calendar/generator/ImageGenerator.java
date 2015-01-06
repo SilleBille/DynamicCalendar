@@ -5,7 +5,7 @@ package com.kd.dynamic.calendar.generator;
  */
 public class ImageGenerator {
 
-    public Bitmap generateImage(Context context, String month, String date) {
+   /* public Bitmap generateImage(Context context, String month, String date) {
         Bitmap src = BitmapFactory.decodeResource(context.getResources(), R.drawable.calendar_empty); // the original file yourimage.jpg i added in resources
         Bitmap dest = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
 
@@ -45,5 +45,5 @@ public class ImageGenerator {
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 }
