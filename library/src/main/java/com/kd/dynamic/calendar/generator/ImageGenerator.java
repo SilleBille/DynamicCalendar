@@ -19,7 +19,10 @@ package com.kd.dynamic.calendar.generator;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.Log;
 
@@ -28,6 +31,7 @@ import java.util.Calendar;
 
 public class ImageGenerator {
 
+    private final String LIBRARY_TAG = "Dynamic Calendar Icon";
     private Context mContext;
     private float mMonthSize = 9f;
     private float mDateSize = 32f;
@@ -97,15 +101,57 @@ public class ImageGenerator {
         // Print the separated date and month
         Log.d("Date here: ", mDate + ":" + mMonth);
 
+        mSource = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.);
+        Log.d(LIBRARY_TAG, "" + backgroundImage);
+        mDestination = Bitmap.createBitmap(mSource.getWidth(), mSource.getHeight(), Bitmap.Config.ARGB_8888);
 
-        return null;
+        Canvas canvas = new Canvas(mDestination);
+        Paint paint = new Paint();
+        paint.setTextSize(spToPixels(mContext, mMonthSize));
+        paint.setColor(mColor);
+        canvas.drawBitmap(mSource, 0f, 0f, null);
+        float height = paint.measureText("yY");
+        float widthMonth = paint.measureText(mMonth);
 
+        float x_month = (mSource.getWidth() - widthMonth) / 2;
+        canvas.drawText(mMonth, x_month, height + spToPixels(mContext, 1.5f), paint);
+
+        paint.setTextSize(spToPixels(mContext, mDateSize));
+        paint.setColor(Color.BLUE);
+
+        height = paint.measureText("yY");
+        float widthDate = paint.measureText(mDate);
+        float x_date = (mSource.getWidth() - widthDate) / 2;
+        canvas.drawText(mDate, x_date, height + spToPixels(mContext, 7f), paint);
+
+        Log.d(LIBRARY_TAG, "Image has been generated!");
+        return mDestination;
+        /*try {
+            File dirMake = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/.CalendarImageGenerated/");
+            dirMake.mkdirs();
+
+            mDestination.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(new File(dirMake, "GeneratedCalendar.png")));
+            // dest is Bitmap, if you want to preview the final image, you can display it on screen also before saving
+
+
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
+
+
+    }
+
+    private float spToPixels(Context context, float sp) {
+        float scaledDensity = context.getResources().getDisplayMetrics().scaledDensity;
+        Log.d(LIBRARY_TAG, "SP:" + sp + "-> Pixel: " + Math.round(sp * scaledDensity) + "\n");
+        return Math.round(sp * scaledDensity);
     }
 
    /* public Bitmap generateImage(Context context, String month, String date) {
        Bitmap src = BitmapFactory.decodeResource(context.getResources(), R.drawable.calendar_empty); // the original file yourimage.jpg i added in resources
         Bitmap dest = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
-
 
         Canvas cs = new Canvas(dest);
         Paint tPaint = new Paint();
@@ -116,7 +162,6 @@ public class ImageGenerator {
         float width_month = tPaint.measureText(month);
         float x_month = (src.getWidth() - width_month) / 2;
         cs.drawText(month, x_month, height + spToPixels(context, 1.5f), tPaint); // 15f is to put space between top edge and the text, if you want to change it, you can
-
 
         tPaint.setTextSize(spToPixels(context, 32f));
         int APP_THEME = MyFunctions.getAppTheme(context);

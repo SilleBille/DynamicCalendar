@@ -17,11 +17,13 @@
 package com.kd.dynamic.calendar;
 
 import android.app.DatePickerDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.kd.dynamic.calendar.generator.ImageGenerator;
 
@@ -33,6 +35,8 @@ public class MainActivity extends ActionBarActivity {
     ImageGenerator mImageGenerator;
     EditText mDateEditText;
     Calendar mCurrentDate;
+    Bitmap mGeneratedDateIcon;
+    ImageView mDisplayGeneratedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +61,14 @@ public class MainActivity extends ActionBarActivity {
 
                         // Set the mCurrentDate to the selected date-month-year
                         mCurrentDate.set(selectedYear, selectedMonth, selectedDay);
-                        mImageGenerator.generateDateImage(mCurrentDate);
+                        mGeneratedDateIcon = mImageGenerator.generateDateImage(mCurrentDate, R.drawable.calendar_empty);
+                        mDisplayGeneratedImage.setImageBitmap(mGeneratedDateIcon);
                     }
                 }, mYear, mMonth, mDay);
                 mDatePicker.show();
             }
         });
+
 
     }
 
