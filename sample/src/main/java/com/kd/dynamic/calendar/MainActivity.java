@@ -44,6 +44,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         mImageGenerator = new ImageGenerator(this);
         mDateEditText = (EditText) findViewById(R.id.txtDateEntered);
+        mDisplayGeneratedImage = (ImageView) findViewById(R.id.imgGenerated);
 
         // Pop up Date picker on pressing the editText
         mDateEditText.setOnClickListener(new View.OnClickListener() {

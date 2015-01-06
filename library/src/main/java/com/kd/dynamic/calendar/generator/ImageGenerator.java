@@ -24,8 +24,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -100,10 +104,11 @@ public class ImageGenerator {
 
         // Print the separated date and month
         Log.d("Date here: ", mDate + ":" + mMonth);
+        Log.d(LIBRARY_TAG, mContext.getResources().getResourceEntryName(backgroundImage));
 
-        mSource = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.);
-        Log.d(LIBRARY_TAG, "" + backgroundImage);
+        mSource = BitmapFactory.decodeResource(mContext.getResources(), backgroundImage);
         mDestination = Bitmap.createBitmap(mSource.getWidth(), mSource.getHeight(), Bitmap.Config.ARGB_8888);
+
 
         Canvas canvas = new Canvas(mDestination);
         Paint paint = new Paint();
@@ -125,22 +130,22 @@ public class ImageGenerator {
         canvas.drawText(mDate, x_date, height + spToPixels(mContext, 7f), paint);
 
         Log.d(LIBRARY_TAG, "Image has been generated!");
-        return mDestination;
-        /*try {
+
+        try {
             File dirMake = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/.CalendarImageGenerated/");
             dirMake.mkdirs();
 
             mDestination.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(new File(dirMake, "GeneratedCalendar.png")));
             // dest is Bitmap, if you want to preview the final image, you can display it on screen also before saving
 
-
+            return mDestination;
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }*/
+        }
 
-
+        return null;
     }
 
     private float spToPixels(Context context, float sp) {
