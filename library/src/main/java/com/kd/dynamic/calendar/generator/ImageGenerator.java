@@ -19,24 +19,50 @@ package com.kd.dynamic.calendar.generator;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 
 public class ImageGenerator {
 
     private Context mContext;
     private float mSize;
     private Color mColor;
+    private Typeface mTypeFace;
 
+    /**
+     * Get the context of the activity
+     *
+     * @param context The context in which image is to be placed
+     */
     public ImageGenerator(Context context) {
         mContext = context;
     }
 
-    public void setFont(float size) {
+    /**
+     * Set the size of the font to be generated.
+     *
+     * @param size The size of the font
+     */
+    public void setFontSize(float size) {
         mSize = size;
     }
 
-    public void setmColor(Color color) {
+    /**
+     * Apply the specified color to the font
+     *
+     * @param color The color of the font
+     */
+    public void setColor(Color color) {
         mColor = color;
     }
+
+    /**
+     * Apply the specified TypeFace to the font
+     * @param typeFace
+     */
+    public void setTypeFace(Typeface typeFace) {
+        mTypeFace = typeFace;
+    }
+
 
    /* public Bitmap generateImage(Context context, String month, String date) {
         Bitmap src = BitmapFactory.decodeResource(context.getResources(), R.drawable.calendar_empty); // the original file yourimage.jpg i added in resources
