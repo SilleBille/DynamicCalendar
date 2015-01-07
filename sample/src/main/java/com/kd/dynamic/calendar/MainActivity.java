@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity {
 
                         // Set the mCurrentDate to the selected date-month-year
                         mCurrentDate.set(selectedYear, selectedMonth, selectedDay);
-                        mGeneratedDateIcon = mImageGenerator.generateDateImage(mCurrentDate, R.drawable.calendar_empty);
+                        mGeneratedDateIcon = mImageGenerator.generateDateImage(mCurrentDate, R.drawable.empty_calendar);
                         mDisplayGeneratedImage.setImageBitmap(mGeneratedDateIcon);
                     }
                 }, mYear, mMonth, mDay);

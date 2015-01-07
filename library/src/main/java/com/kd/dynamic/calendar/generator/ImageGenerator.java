@@ -37,9 +37,10 @@ public class ImageGenerator {
 
     private final String LIBRARY_TAG = "Dynamic Calendar Icon";
     private Context mContext;
-    private float mMonthSize = 9f;
-    private float mDateSize = 32f;
-    private int mColor = Color.WHITE;
+    private float mMonthSize = 90f;
+    private float mDateSize = 400f;
+    private int mMonthColor = Color.WHITE;
+    private int mDateColor = 0x477ebc;
     private Typeface mTypeFace;
 
     private String mDate;
@@ -76,12 +77,12 @@ public class ImageGenerator {
     }
 
     /**
-     * Apply the specified color to the font
+     * Apply the specified color to the Month font
      *
-     * @param color The color of the font
+     * @param color The color of the Month font
      */
-    public void setColor(int color) {
-        mColor = color;
+    public void setMonthColor(int color) {
+        mMonthColor = color;
     }
 
     /**
@@ -98,13 +99,12 @@ public class ImageGenerator {
 
         // Get the individual date and month from the date object
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
         mDate = dateFormat.format(dateString.getTime());
         mMonth = monthFormat.format(dateString.getTime());
 
         // Print the separated date and month
-        Log.d("Date here: ", mDate + ":" + mMonth);
-        Log.d(LIBRARY_TAG, mContext.getResources().getResourceEntryName(backgroundImage));
+        Log.d(LIBRARY_TAG, mDate + ":" + mMonth);
 
         mSource = BitmapFactory.decodeResource(mContext.getResources(), backgroundImage);
         mDestination = Bitmap.createBitmap(mSource.getWidth(), mSource.getHeight(), Bitmap.Config.ARGB_8888);
@@ -113,21 +113,21 @@ public class ImageGenerator {
         Canvas canvas = new Canvas(mDestination);
         Paint paint = new Paint();
         paint.setTextSize(spToPixels(mContext, mMonthSize));
-        paint.setColor(mColor);
+        paint.setColor(mMonthColor);
         canvas.drawBitmap(mSource, 0f, 0f, null);
         float height = paint.measureText("yY");
         float widthMonth = paint.measureText(mMonth);
 
         float x_month = (mSource.getWidth() - widthMonth) / 2;
-        canvas.drawText(mMonth, x_month, height + spToPixels(mContext, 1.5f), paint);
+        canvas.drawText(mMonth, x_month, height + spToPixels(mContext, 100f), paint);
 
         paint.setTextSize(spToPixels(mContext, mDateSize));
-        paint.setColor(Color.BLUE);
+        paint.setColor(mDateColor);
 
         height = paint.measureText("yY");
         float widthDate = paint.measureText(mDate);
         float x_date = (mSource.getWidth() - widthDate) / 2;
-        canvas.drawText(mDate, x_date, height + spToPixels(mContext, 7f), paint);
+        canvas.drawText(mDate, x_date, height + spToPixels(mContext, 200f), paint);
 
         Log.d(LIBRARY_TAG, "Image has been generated!");
 
@@ -135,7 +135,7 @@ public class ImageGenerator {
             File dirMake = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/.CalendarImageGenerated/");
             dirMake.mkdirs();
 
-            mDestination.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(new File(dirMake, "GeneratedCalendar.png")));
+            mDestination.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(new File(dirMake, "GeneratedCalendar.png")));
             // dest is Bitmap, if you want to preview the final image, you can display it on screen also before saving
 
             return mDestination;
