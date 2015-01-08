@@ -31,9 +31,12 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="69dp"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:gravity="center_horizontal"
-        android:hint="DD-MM-YYYY"
-        android:inputType="none" />
+        android:hint="DD-MM-YYYY" />
 
     <ImageView
         android:id="@+id/imgGenerated"

@@ -20,16 +20,10 @@ package com.kd.dynamic.calendar.generator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.os.Environment;
 import android.util.Log;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -106,12 +100,16 @@ public class ImageGenerator {
         // Print the separated date and month
         Log.d(LIBRARY_TAG, mDate + ":" + mMonth);
 
-        mSource = BitmapFactory.decodeResource(mContext.getResources(), backgroundImage);
-        Log.d(LIBRARY_TAG, mSource.getWidth() + "" + mSource.getHeight());
-        mDestination = Bitmap.createBitmap(mSource.getWidth(), mSource.getHeight(), Bitmap.Config.ARGB_8888);
+        BitmapFactory.Options options = new BitmapFactory.Options();
 
+        options.inScaled = false;
 
-        Canvas canvas = new Canvas(mDestination);
+        mSource = BitmapFactory.decodeResource(mContext.getResources(), backgroundImage, options);
+        Log.d(LIBRARY_TAG, mSource.getWidth() + " x " + mSource.getHeight());
+        mDestination = Bitmap.createScaledBitmap(mSource, mSource.getWidth() / 2, mSource.getHeight() / 2, false);
+        return mDestination;
+
+       /* Canvas canvas = new Canvas(mDestination);
         Paint paint = new Paint();
         paint.setTextSize(spToPixels(mContext, mMonthSize));
         paint.setColor(mMonthColor);
@@ -139,14 +137,14 @@ public class ImageGenerator {
             mDestination.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(new File(dirMake, "GeneratedCalendar.png")));
             // dest is Bitmap, if you want to preview the final image, you can display it on screen also before saving
 
-            return mSource;
+            return mDestination;
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        return null;
+        return null;*/
     }
 
     private float spToPixels(Context context, float sp) {
