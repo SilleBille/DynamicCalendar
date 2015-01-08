@@ -31,9 +31,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="69dp"
-        android:editable="false"
         android:gravity="center_horizontal"
-        android:hint="DD-MM-YYYY" />
+        android:hint="DD-MM-YYYY"
+        android:inputType="none" />
 
     <ImageView
         android:id="@+id/imgGenerated"
@@ -41,6 +41,12 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
+
+    <View
+        android:id="@+id/viewTop"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:background="@color/accent_material_light" />
 
 
 </RelativeLayout>

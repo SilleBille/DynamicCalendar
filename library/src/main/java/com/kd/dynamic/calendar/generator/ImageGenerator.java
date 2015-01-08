@@ -107,6 +107,7 @@ public class ImageGenerator {
         Log.d(LIBRARY_TAG, mDate + ":" + mMonth);
 
         mSource = BitmapFactory.decodeResource(mContext.getResources(), backgroundImage);
+        Log.d(LIBRARY_TAG, mSource.getWidth() + "" + mSource.getHeight());
         mDestination = Bitmap.createBitmap(mSource.getWidth(), mSource.getHeight(), Bitmap.Config.ARGB_8888);
 
 
@@ -138,7 +139,7 @@ public class ImageGenerator {
             mDestination.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(new File(dirMake, "GeneratedCalendar.png")));
             // dest is Bitmap, if you want to preview the final image, you can display it on screen also before saving
 
-            return mDestination;
+            return mSource;
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block

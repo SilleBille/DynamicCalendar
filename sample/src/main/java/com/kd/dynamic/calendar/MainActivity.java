@@ -21,6 +21,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,6 +38,7 @@ public class MainActivity extends ActionBarActivity {
     Calendar mCurrentDate;
     Bitmap mGeneratedDateIcon;
     ImageView mDisplayGeneratedImage;
+    View mTopLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends ActionBarActivity {
         mImageGenerator = new ImageGenerator(this);
         mDateEditText = (EditText) findViewById(R.id.txtDateEntered);
         mDisplayGeneratedImage = (ImageView) findViewById(R.id.imgGenerated);
+        mTopLine = findViewById(R.id.viewTop);
 
         // Pop up Date picker on pressing the editText
         mDateEditText.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +67,10 @@ public class MainActivity extends ActionBarActivity {
                         mCurrentDate.set(selectedYear, selectedMonth, selectedDay);
                         mGeneratedDateIcon = mImageGenerator.generateDateImage(mCurrentDate, R.drawable.empty_calendar);
                         mDisplayGeneratedImage.setImageBitmap(mGeneratedDateIcon);
+
+
+                        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams();
+                        mTopLine.setLayoutParams();
                     }
                 }, mYear, mMonth, mDay);
                 mDatePicker.show();
