@@ -18,6 +18,7 @@ package com.kd.dynamic.calendar;
 
 import android.app.DatePickerDialog;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -68,6 +69,18 @@ public class MainActivity extends ActionBarActivity {
         mImageGenerator = new ImageGenerator(this);
         mDateEditText = (EditText) findViewById(R.id.txtDateEntered);
         mDisplayGeneratedImage = (ImageView) findViewById(R.id.imgGenerated);
+
+        mImageGenerator.setIconSize(50, 50);
+        mImageGenerator.setDateSize(30);
+        mImageGenerator.setMonthSize(10);
+
+        mImageGenerator.setDatePosition(42);
+        mImageGenerator.setMonthPosition(14);
+
+        mImageGenerator.setDateColor(Color.parseColor("#3c6eaf"));
+        mImageGenerator.setMonthColor(Color.WHITE);
+
+        mImageGenerator.setStorageToSDCard(true);
 
         // Pop up Date picker on pressing the editText
         mDateEditText.setOnClickListener(setDate);

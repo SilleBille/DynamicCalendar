@@ -18,39 +18,72 @@ package com.kd.dynamic.calendar.generator;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ImageGenerator {
 
     private final String LIBRARY_TAG = "Dynamic Calendar Icon";
+    private final String IMAGE_GENERATED = "com.dynamic.image.generator";
+    private final String IMAGE_GENERATED_KEY = IMAGE_GENERATED + ".count";
+    SharedPreferences mPrefs;
     private Context mContext;
-    private Bitmap mSource;
+    //private Bitmap mSource;
     private Bitmap mDestination;
-    private int mScaleFactor;
-    private float mMonthSize = 90f;
-    private float mDateSize = 400f;
+    private float mScaleFactor;
+    private int mIconWidth;
+    private int mIconHeight;
+    private float mMonthSize;
+    private float mDateSize;
+    private int mDatePosition;
+    private int mMonthPosition;
     private int mMonthColor;
     private int mDateColor;
+    private boolean mMonthColorSet = false;
+    private boolean mDateColorSet = false;
     private Typeface mDateTypeFace;
     private Typeface mMonthTypeFace;
-
+    private boolean mNeedToStoreInStorage = false;
     private String mDate;
     private String mMonth;
 
 
     /**
-     * Get the context of the activity. Mandatory field
+     * Get the context of the activity.
      *
      * @param context The context in which image is to be placed
      */
     public ImageGenerator(Context context) {
         mContext = context;
+        mScaleFactor = mContext.getResources().getDisplayMetrics().density;
+        mPrefs = mContext.getSharedPreferences(IMAGE_GENERATED, Context.MODE_PRIVATE);
+    }
+
+    /**
+     * Set the size of the icon to be generated.
+     * <p/>
+     * MANDATORY
+     *
+     * @param width  The width of the image
+     * @param height The height of the image
+     */
+    public void setIconSize(int width, int height) {
+        mIconWidth = (int) mScaleFactor * width;
+        mIconHeight = (int) mScaleFactor * height;
     }
 
     /**
@@ -61,7 +94,7 @@ public class ImageGenerator {
      * @param monthSize The size of the date font
      */
     public void setMonthSize(float monthSize) {
-        mMonthSize = monthSize;
+        mMonthSize = (int) mScaleFactor * monthSize;
     }
 
     /**
@@ -72,7 +105,29 @@ public class ImageGenerator {
      * @param dateSize The size of the date font
      */
     public void setDateSize(float dateSize) {
-        mDateSize = dateSize;
+        mDateSize = (int) mScaleFactor * dateSize;
+    }
+
+    /**
+     * Set the Y co-ordinate of Month
+     * <p/>
+     * MANDATORY
+     *
+     * @param y Y co-ordinate from top in pixels
+     */
+    public void setMonthPosition(int y) {
+        mMonthPosition = (int) mScaleFactor * y;
+    }
+
+    /**
+     * Set the Y co-ordinate of Date
+     * <p/>
+     * MANDATORY
+     *
+     * @param y Y co-ordinate from top in pixels
+     */
+    public void setDatePosition(int y) {
+        mDatePosition = (int) mScaleFactor * y;
     }
 
     /**
@@ -84,6 +139,7 @@ public class ImageGenerator {
      */
     public void setMonthColor(int color) {
         mMonthColor = color;
+        mMonthColorSet = true;
     }
 
     /**
@@ -95,6 +151,7 @@ public class ImageGenerator {
      */
     public void setDateColor(int color) {
         mDateColor = color;
+        mDateColorSet = true;
     }
 
     /**
@@ -102,10 +159,10 @@ public class ImageGenerator {
      * <p/>
      * OPTIONAL
      *
-     * @param typeFace Typeface of the date font to be generated
+     * @param fontName Name of the date font to be generated
      */
-    public void setDateTypeFace(Typeface typeFace) {
-        mDateTypeFace = typeFace;
+    public void setDateTypeFace(String fontName) {
+        mDateTypeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/" + fontName);
     }
 
     /**
@@ -113,15 +170,20 @@ public class ImageGenerator {
      * <p/>
      * OPTIONAL
      *
-     * @param typeFace Typeface of the month font to be generated
+     * @param fontName Name of the month font to be generated
      */
-    public void setMonthTypeFace(Typeface typeFace) {
-        mMonthTypeFace = typeFace;
+    public void setMonthTypeFace(String fontName) {
+        mMonthTypeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/" + fontName);
+    }
+
+    public void setStorageToSDCard(boolean toSDCard) {
+        mNeedToStoreInStorage = toSDCard;
     }
 
 
     public Bitmap generateDateImage(Calendar dateString, int backgroundImage) {
 
+        Log.d(LIBRARY_TAG, "The destination size set is: " + mIconWidth + "x" + mIconHeight);
         // Get the individual date and month from the date object
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
         SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
@@ -135,49 +197,49 @@ public class ImageGenerator {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
 
-        mSource = BitmapFactory.decodeResource(mContext.getResources(), backgroundImage, options);
-        Log.d(LIBRARY_TAG, "Size of the image selected: "mSource.getWidth() + " x " + mSource.getHeight());
+        mDestination = BitmapFactory.decodeResource(mContext.getResources(), backgroundImage, options);
+        Log.d(LIBRARY_TAG, "Size of the image selected: " + mDestination.getWidth() + " x " + mDestination.getHeight());
 
         // Set the size of the Destination image based on the accepted values
-        mDestination = Bitmap.createScaledBitmap(mSource, mSource.getWidth() / 4, mSource.getHeight() / 4, false);
+        mDestination = Bitmap.createScaledBitmap(mDestination, mIconWidth, mIconHeight, false);
 
+        Rect bounds = new Rect();
+        Canvas canvas = new Canvas(mDestination);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        canvas.drawBitmap(mDestination, 0f, 0f, null);
 
-       /* Canvas canvas = new Canvas(mDestination);
-        Paint paint = new Paint();
-        paint.setTextSize(spToPixels(mContext, mMonthSize));
-        paint.setColor(mMonthColor);
-        canvas.drawBitmap(mSource, 0f, 0f, null);
-        float height = paint.measureText("yY");
-        float widthMonth = paint.measureText(mMonth);
+        paint.setTextSize(mMonthSize);
+        if (mMonthColorSet) paint.setColor(mMonthColor);
+        else paint.setColor(Color.BLUE);
+        paint.getTextBounds(mMonth, 0, mMonth.length(), bounds);
+        canvas.drawText(mMonth, (canvas.getWidth() - bounds.width()) / 2, mMonthPosition, paint);
 
-        float x_month = (mSource.getWidth() - widthMonth) / 2;
-        canvas.drawText(mMonth, x_month, height + spToPixels(mContext, 100f), paint);
-
-        paint.setTextSize(spToPixels(mContext, mDateSize));
-        paint.setColor(mDateColor);
-
-        height = paint.measureText("yY");
-        float widthDate = paint.measureText(mDate);
-        float x_date = (mSource.getWidth() - widthDate) / 2;
-        canvas.drawText(mDate, x_date, height + spToPixels(mContext, 200f), paint);
+        paint.setTextSize(mDateSize);
+        if (mDateColorSet) paint.setColor(mDateColor);
+        else paint.setColor(Color.GREEN);
+        paint.getTextBounds(mDate, 0, mDate.length(), bounds);
+        canvas.drawText(mDate, (canvas.getWidth() - bounds.width()) / 2, mDatePosition, paint);
 
         Log.d(LIBRARY_TAG, "Image has been generated!");
+        mPrefs.edit().putInt(IMAGE_GENERATED_KEY, mPrefs.getInt(IMAGE_GENERATED_KEY, 0) + 1).apply();
+        if (mNeedToStoreInStorage) {
+            try {
+                File dirMake = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/CalendarImageGenerated/");
+                dirMake.mkdirs();
 
-        try {
-            File dirMake = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/.CalendarImageGenerated/");
-            dirMake.mkdirs();
+                mDestination.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(new File(dirMake, mPrefs.getInt(IMAGE_GENERATED_KEY, 0) + ".png")));
 
-            mDestination.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(new File(dirMake, "GeneratedCalendar.png")));
-            // dest is Bitmap, if you want to preview the final image, you can display it on screen also before saving
+                Log.d(LIBRARY_TAG, "Image Stored in " + dirMake.getAbsolutePath() + "GeneratedCalendar.png");
 
-            return mDestination;
+                return mDestination;
 
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
 
-        return null;*/
+        return mDestination;
     }
 
     private float spToPixels(Context context, float sp) {
