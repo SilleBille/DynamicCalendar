@@ -36,8 +36,30 @@ public class MainActivity extends ActionBarActivity {
     EditText mDateEditText;
     Calendar mCurrentDate;
     Bitmap mGeneratedDateIcon;
+    View.OnClickListener setDate = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mCurrentDate = Calendar.getInstance();
+            int mYear = mCurrentDate.get(Calendar.YEAR);
+            int mMonth = mCurrentDate.get(Calendar.MONTH);
+            int mDay = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog mDatePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
+                    // Update the editText to display the selected date
+                    mDateEditText.setText(selectedDay + "-" + (selectedMonth + 1) + "-" + selectedYear);
+
+                    // Set the mCurrentDate to the selected date-month-year
+                    mCurrentDate.set(selectedYear, selectedMonth, selectedDay);
+                    mGeneratedDateIcon = mImageGenerator.generateDateImage(mCurrentDate, R.drawable.empty_calendar);
+                    mDisplayGeneratedImage.setImageBitmap(mGeneratedDateIcon);
+
+                }
+            }, mYear, mMonth, mDay);
+            mDatePicker.show();
+        }
+    };
     ImageView mDisplayGeneratedImage;
-    View mTopLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,36 +68,12 @@ public class MainActivity extends ActionBarActivity {
         mImageGenerator = new ImageGenerator(this);
         mDateEditText = (EditText) findViewById(R.id.txtDateEntered);
         mDisplayGeneratedImage = (ImageView) findViewById(R.id.imgGenerated);
-        mTopLine = findViewById(R.id.viewTop);
 
         // Pop up Date picker on pressing the editText
-        mDateEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCurrentDate = Calendar.getInstance();
-                int mYear = mCurrentDate.get(Calendar.YEAR);
-                int mMonth = mCurrentDate.get(Calendar.MONTH);
-                int mDay = mCurrentDate.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog mDatePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
-                        // Update the editText to display the selected date
-                        mDateEditText.setText(selectedDay + "-" + (selectedMonth + 1) + "-" + selectedYear);
-
-                        // Set the mCurrentDate to the selected date-month-year
-                        mCurrentDate.set(selectedYear, selectedMonth, selectedDay);
-                        mGeneratedDateIcon = mImageGenerator.generateDateImage(mCurrentDate, R.drawable.empty_calendar);
-                        mDisplayGeneratedImage.setImageBitmap(mGeneratedDateIcon);
-
-
-                    }
-                }, mYear, mMonth, mDay);
-                mDatePicker.show();
-            }
-        });
+        mDateEditText.setOnClickListener(setDate);
 
 
     }
-
-
 }
+
+

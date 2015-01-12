@@ -20,7 +20,6 @@ package com.kd.dynamic.calendar.generator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.Log;
 
@@ -31,20 +30,22 @@ public class ImageGenerator {
 
     private final String LIBRARY_TAG = "Dynamic Calendar Icon";
     private Context mContext;
+    private Bitmap mSource;
+    private Bitmap mDestination;
+    private int mScaleFactor;
     private float mMonthSize = 90f;
     private float mDateSize = 400f;
-    private int mMonthColor = Color.WHITE;
-    private int mDateColor = 0x477ebc;
-    private Typeface mTypeFace;
+    private int mMonthColor;
+    private int mDateColor;
+    private Typeface mDateTypeFace;
+    private Typeface mMonthTypeFace;
 
     private String mDate;
     private String mMonth;
 
-    private Bitmap mSource;
-    private Bitmap mDestination;
 
     /**
-     * Get the context of the activity
+     * Get the context of the activity. Mandatory field
      *
      * @param context The context in which image is to be placed
      */
@@ -54,6 +55,8 @@ public class ImageGenerator {
 
     /**
      * Set the size of the month font to be generated.
+     * <p/>
+     * MANDATORY
      *
      * @param monthSize The size of the date font
      */
@@ -63,6 +66,8 @@ public class ImageGenerator {
 
     /**
      * Set the size of the date font to be generated.
+     * <p/>
+     * MANDATORY
      *
      * @param dateSize The size of the date font
      */
@@ -72,6 +77,8 @@ public class ImageGenerator {
 
     /**
      * Apply the specified color to the Month font
+     * <p/>
+     * OPTIONAL
      *
      * @param color The color of the Month font
      */
@@ -80,12 +87,36 @@ public class ImageGenerator {
     }
 
     /**
-     * Apply the specified TypeFace to the font
+     * Apply the specified color to the Date font
+     * <p/>
+     * OPTIONAL
      *
-     * @param typeFace Typeface of the font to be generated
+     * @param color The color of the Date font
      */
-    public void setTypeFace(Typeface typeFace) {
-        mTypeFace = typeFace;
+    public void setDateColor(int color) {
+        mDateColor = color;
+    }
+
+    /**
+     * Apply the specified TypeFace to the date font
+     * <p/>
+     * OPTIONAL
+     *
+     * @param typeFace Typeface of the date font to be generated
+     */
+    public void setDateTypeFace(Typeface typeFace) {
+        mDateTypeFace = typeFace;
+    }
+
+    /**
+     * Apply the specified TypeFace to the month font
+     * <p/>
+     * OPTIONAL
+     *
+     * @param typeFace Typeface of the month font to be generated
+     */
+    public void setMonthTypeFace(Typeface typeFace) {
+        mMonthTypeFace = typeFace;
     }
 
 
@@ -100,14 +131,16 @@ public class ImageGenerator {
         // Print the separated date and month
         Log.d(LIBRARY_TAG, mDate + ":" + mMonth);
 
+        // To ensure that it loads the correct size
         BitmapFactory.Options options = new BitmapFactory.Options();
-
         options.inScaled = false;
 
         mSource = BitmapFactory.decodeResource(mContext.getResources(), backgroundImage, options);
-        Log.d(LIBRARY_TAG, mSource.getWidth() + " x " + mSource.getHeight());
-        mDestination = Bitmap.createScaledBitmap(mSource, mSource.getWidth() / 2, mSource.getHeight() / 2, false);
-        return mDestination;
+        Log.d(LIBRARY_TAG, "Size of the image selected: "mSource.getWidth() + " x " + mSource.getHeight());
+
+        // Set the size of the Destination image based on the accepted values
+        mDestination = Bitmap.createScaledBitmap(mSource, mSource.getWidth() / 4, mSource.getHeight() / 4, false);
+
 
        /* Canvas canvas = new Canvas(mDestination);
         Paint paint = new Paint();
