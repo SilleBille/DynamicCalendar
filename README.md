@@ -20,4 +20,5 @@ Change Log
 
 Screen Shots
 ============
-
+![Basic Icon Generated](/sample-images/BasicActivity.png)
+![Typeface and color changed](/sample-images/TypeFaceActivity.png)
