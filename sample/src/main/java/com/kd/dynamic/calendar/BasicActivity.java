@@ -31,7 +31,7 @@ import com.kd.dynamic.calendar.generator.ImageGenerator;
 import java.util.Calendar;
 
 
-public class MainActivity extends ActionBarActivity {
+public class BasicActivity extends ActionBarActivity {
 
     ImageGenerator mImageGenerator;
     EditText mDateEditText;
@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
             int mMonth = mCurrentDate.get(Calendar.MONTH);
             int mDay = mCurrentDate.get(Calendar.DAY_OF_MONTH);
 
-            DatePickerDialog mDatePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog mDatePicker = new DatePickerDialog(BasicActivity.this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
                     // Update the editText to display the selected date
                     mDateEditText.setText(selectedDay + "-" + (selectedMonth + 1) + "-" + selectedYear);
@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_basic);
         mImageGenerator = new ImageGenerator(this);
         mDateEditText = (EditText) findViewById(R.id.txtDateEntered);
         mDisplayGeneratedImage = (ImageView) findViewById(R.id.imgGenerated);

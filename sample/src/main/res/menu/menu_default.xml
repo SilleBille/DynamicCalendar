@@ -14,9 +14,14 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="button_vertical_margin">15dp</dimen>
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kd.dynamic.calendar.DefaultActivity">
+    <item
+        android:id="@+id/action_github"
+        android:icon="@drawable/github"
+        android:orderInCategory="100"
+        android:title="@string/action_github"
+        app:showAsAction="always" />
+</menu>
