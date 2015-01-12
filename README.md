@@ -20,5 +20,5 @@ Change Log
 
 Screen Shots
 ============
-![Basic Icon Generated](/https://github.com/SilleBille/DynamicCalendar/blob/master/sample-images/BasicActivity.png)
-![Typeface and color changed](/https://github.com/SilleBille/DynamicCalendar/blob/master/sample-images/TypeFaceActivity.png)
+![Basic Icon Generated](/raw.github.com/SilleBille/DynamicCalendar/blob/master/sample-images/BasicActivity.png)
+![Typeface and color changed](/raw.github.com/SilleBille/DynamicCalendar/blob/master/sample-images/TypeFaceActivity.png)
