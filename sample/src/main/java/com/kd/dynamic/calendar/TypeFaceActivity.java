@@ -77,7 +77,7 @@ public class TypeFaceActivity extends ActionBarActivity {
         mImageGenerator.setDatePosition(42);
         mImageGenerator.setMonthPosition(14);
 
-        mImageGenerator.setDateColor(Color.parseColor("#009688"));
+        mImageGenerator.setDateColor(Color.parseColor("#3c6eaf"));
         mImageGenerator.setMonthColor(Color.WHITE);
 
         mImageGenerator.setStorageToSDCard(true);
