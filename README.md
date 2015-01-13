@@ -116,6 +116,7 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Dynamic%20Calendar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1366)
 
  [1]: https://raw.github.com/SilleBille/DynamicCalendar/master/sample-images/BasicActivity.png
  [2]: https://raw.github.com/SilleBille/DynamicCalendar/master/sample-images/TypeFaceActivity.png
