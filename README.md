@@ -36,7 +36,7 @@ dependencies {
 ```
     
 
-## Mandatory Java Code
+## Mandatory Properties to be set
 ```java
 // Create an object of ImageGenerator class in your activity
 // and pass the context as the parameter
@@ -56,6 +56,15 @@ mImageGenerator.setMonthPosition(14);
 // Set the color of the font to be generated
 mImageGenerator.setDateColor(Color.parseColor("#3c6eaf"));
 mImageGenerator.setMonthColor(Color.WHITE);
+```
+
+## Generating the Image
+After setting all the required properties, generate the image. This function returns a bitmap.
+
+``java
+// 1st param, mCurrentDate should be an instance of class Calendar
+// 2nd param, send the id of the empty calendar icon
+mImageGenerator.generateDateImage(mCurrentDate, R.drawable.empty_calendar);
 ```
 
 ## Optional Features
