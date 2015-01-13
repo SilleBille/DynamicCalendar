@@ -62,7 +62,7 @@ mImageGenerator.setMonthColor(Color.WHITE);
 ## Generating the Image
 After setting all the required properties, generate the image. This function returns a bitmap.
 
-``java
+```java
 // 1st param, mCurrentDate should be an instance of class Calendar
 // 2nd param, send the id of the empty calendar icon
 mImageGenerator.generateDateImage(mCurrentDate, R.drawable.empty_calendar);
