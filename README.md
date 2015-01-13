@@ -31,7 +31,7 @@ Add this to your `build.gradle` of your project
 ```groovy
 dependencies {
     ...
-    compile 'com.github.sillebille:dynamic-calendar:1.0'
+    compile 'com.github.sillebille:dynamic-calendar:1.0.1'
     ...
 }
 ```
