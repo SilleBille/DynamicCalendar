@@ -17,6 +17,7 @@ Features Included
 Change Log
 ----------
 - **12 Jan 2015**: First release
+- **13 Jan 2015**: Added support from API 9
 
 Screen Shots
 ------------
