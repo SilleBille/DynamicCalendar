@@ -37,6 +37,7 @@ dependencies {
     
 
 ## Mandatory Properties to be set
+
 ```java
 // Create an object of ImageGenerator class in your activity
 // and pass the context as the parameter
@@ -69,6 +70,7 @@ mImageGenerator.generateDateImage(mCurrentDate, R.drawable.empty_calendar);
 
 ## Optional Features
 1. Storing the generated image to SDCard
+
 ```java
 // The images are stored in ../sdcard/CalendarImageGenerated/
 mImageGenerator.setStorageToSDCard(true);
@@ -76,6 +78,7 @@ mImageGenerator.setStorageToSDCard(true);
 
 2. Changing the fonts.
 The fonts should be placed in assets/fonts folder. Create folder if they do not exist.
+
 ```java
 // You have to add the complete name with extension
 mImageGenerator.setDateTypeFace("Roboto-Light.ttf");
