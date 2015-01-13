@@ -42,7 +42,6 @@ public class ImageGenerator {
     private final String IMAGE_GENERATED_KEY = IMAGE_GENERATED + ".count";
     SharedPreferences mPrefs;
     private Context mContext;
-    //private Bitmap mSource;
     private Bitmap mDestination;
     private float mScaleFactor;
     private int mIconWidth;
@@ -77,7 +76,6 @@ public class ImageGenerator {
 
     /**
      * Set the size of the icon to be generated.
-     * <p/>
      * MANDATORY
      *
      * @param width  The width of the image
@@ -90,7 +88,6 @@ public class ImageGenerator {
 
     /**
      * Set the size of the month font to be generated.
-     * <p/>
      * MANDATORY
      *
      * @param monthSize The size of the date font
@@ -101,7 +98,6 @@ public class ImageGenerator {
 
     /**
      * Set the size of the date font to be generated.
-     * <p/>
      * MANDATORY
      *
      * @param dateSize The size of the date font
@@ -112,7 +108,6 @@ public class ImageGenerator {
 
     /**
      * Set the Y co-ordinate of Month
-     * <p/>
      * MANDATORY
      *
      * @param y Y co-ordinate from top in pixels
@@ -123,7 +118,6 @@ public class ImageGenerator {
 
     /**
      * Set the Y co-ordinate of Date
-     * <p/>
      * MANDATORY
      *
      * @param y Y co-ordinate from top in pixels
@@ -134,7 +128,6 @@ public class ImageGenerator {
 
     /**
      * Apply the specified color to the Month font
-     * <p/>
      * OPTIONAL
      *
      * @param color The color of the Month font
@@ -146,7 +139,6 @@ public class ImageGenerator {
 
     /**
      * Apply the specified color to the Date font
-     * <p/>
      * OPTIONAL
      *
      * @param color The color of the Date font
@@ -158,7 +150,6 @@ public class ImageGenerator {
 
     /**
      * Apply the specified TypeFace to the date font
-     * <p/>
      * OPTIONAL
      *
      * @param fontName Name of the date font to be generated
@@ -170,7 +161,6 @@ public class ImageGenerator {
 
     /**
      * Apply the specified TypeFace to the month font
-     * <p/>
      * OPTIONAL
      *
      * @param fontName Name of the month font to be generated
