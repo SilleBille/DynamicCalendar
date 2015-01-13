@@ -69,14 +69,14 @@ mImageGenerator.generateDateImage(mCurrentDate, R.drawable.empty_calendar);
 ```
 
 ## Optional Features
-1. Storing the generated image to SDCard
+1 - Storing the generated image to SDCard
 
 ```java
 // The images are stored in ../sdcard/CalendarImageGenerated/
 mImageGenerator.setStorageToSDCard(true);
 ```
 
-2. Changing the fonts.
+2 - Changing the fonts.
 The fonts should be placed in assets/fonts folder. Create folder if they do not exist.
 
 ```java
