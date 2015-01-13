@@ -90,7 +90,7 @@ Sample App
 ----------
 A sample app using this library is available in Android Play Store.
 
-<a href="https://play.google.com/store/apps/details?id=">
+<a href="http://goo.gl/ddpZny">
   <img alt="Android app on Google Play"
        src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
 </a>
