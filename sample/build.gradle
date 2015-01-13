@@ -20,6 +20,8 @@
 
 
 
+
+
 apply plugin: 'com.android.application'
 
 android {
@@ -28,7 +30,7 @@ android {
 
     defaultConfig {
         applicationId "com.kd.dynamic.calendar"
-        minSdkVersion 14
+        minSdkVersion 9
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"

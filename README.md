@@ -113,6 +113,5 @@ License
     limitations under the License.
 
 
-
  [1]: https://raw.github.com/SilleBille/DynamicCalendar/master/sample-images/BasicActivity.png
  [2]: https://raw.github.com/SilleBille/DynamicCalendar/master/sample-images/TypeFaceActivity.png
