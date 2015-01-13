@@ -18,7 +18,9 @@
 
 
 
-apply plugin: 'android'
+
+
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
@@ -33,7 +35,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
