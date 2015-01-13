@@ -33,6 +33,7 @@ dependencies {
     Will update shortly
     ...
 }
+```
     
 Usage
 -----
@@ -68,6 +69,7 @@ mImageGenerator.setStorageToSDCard(true);
 // You have to add the complete name with extension (The extension should be in lower case)
 mImageGenerator.setDateTypeFace("Roboto-Light.ttf");
 mImageGenerator.setMonthTypeFace("Ubuntu-R.ttf");
+```
 
 Sample App
 ----------
