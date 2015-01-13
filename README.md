@@ -35,8 +35,7 @@ dependencies {
 }
 ```
     
-Usage
------
+
 ## Mandatory Java Code
 ```java
 // Create an object of ImageGenerator class in your activity
