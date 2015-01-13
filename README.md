@@ -39,7 +39,8 @@ Usage
 -----
 ## Mandatory Java Code
 ```java
-// Create an object of ImageGenerator class in your activity and pass context as the parameter
+// Create an object of ImageGenerator class in your activity
+// and pass the context as the parameter
 ImageGenerator mImageGenerator = new ImageGenerator(this);
 
 // Set the icon size to the generated in dip. 
@@ -58,15 +59,17 @@ mImageGenerator.setDateColor(Color.parseColor("#3c6eaf"));
 mImageGenerator.setMonthColor(Color.WHITE);
 ```
 
-## Optional Features 
+## Optional Features
+1. Storing the generated image to SDCard
 ```java
-// To store the generated image to external storage
 // The images are stored in ../sdcard/CalendarImageGenerated/
 mImageGenerator.setStorageToSDCard(true);
+```
 
-// Set the typeface of the font
-// You have to place the fonts in assets/fonts (Create the folders if they do not exist)
-// You have to add the complete name with extension (The extension should be in lower case)
+2. Changing the fonts.
+The fonts should be placed in assets/fonts folder. Create folder if they do not exist.
+```java
+// You have to add the complete name with extension
 mImageGenerator.setDateTypeFace("Roboto-Light.ttf");
 mImageGenerator.setMonthTypeFace("Ubuntu-R.ttf");
 ```
