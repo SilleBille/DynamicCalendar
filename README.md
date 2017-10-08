@@ -1,5 +1,6 @@
 Dynamic Calendar
 ================
+[![Build Status](https://travis-ci.org/SilleBille/DynamicCalendar.svg?branch=master)](https://travis-ci.org/SilleBille/DynamicCalendar)
 
 DynamicCalendar library generates a custom calendar icon based on the date you provide. You can also change the background template of the generated date icon.
 
